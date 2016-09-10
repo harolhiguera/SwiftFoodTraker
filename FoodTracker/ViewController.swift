@@ -25,7 +25,7 @@ class ViewController: UIViewController, UITextFieldDelegate,  UIImagePickerContr
         
     }
     
-    // MARK: UITextFieldDelegate
+    // MARK: UITextFieldDelegate Methods
     
     //This method is part of the UITextFiedldDelegate protocol and it is call when user presses DONE btn
     func textFieldShouldReturn(textField: UITextField) -> Bool {

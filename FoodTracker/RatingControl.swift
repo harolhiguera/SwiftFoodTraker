@@ -27,8 +27,6 @@ class RatingControl: UIView {
     }
     
 
-    
-    
     //MARK: Initializaton
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -61,6 +59,7 @@ class RatingControl: UIView {
     
     // Here the intrinsicSize of this view is set so is loyout correctly, values from frame Inspector
     override func intrinsicContentSize() -> CGSize {
+        
         let buttonSize = Int(frame.size.height)
         let width = (buttonSize * starCount) + (spacing * (starCount - 1))
         
@@ -90,11 +89,6 @@ class RatingControl: UIView {
         // When the view loads the rating buttons states are updated
         updateButtonSelectionStates()
     }
-    
-    
-    
-    
-    
     
     // MARK: Button Action
     
