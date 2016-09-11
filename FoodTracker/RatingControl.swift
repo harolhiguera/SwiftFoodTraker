@@ -2,7 +2,7 @@
 //  RatingControl.swift
 //  FoodTracker
 //
-//  Created by USER on 8/14/16.
+//  Created by Harol Higuera on 8/14/16.
 //  Copyright © 2016 Harol. All rights reserved.
 //
 

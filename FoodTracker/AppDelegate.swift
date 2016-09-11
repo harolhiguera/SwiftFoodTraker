@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  FoodTracker
 //
-//  Created by USER on 8/13/16.
+//  Created by Harol Higuera on 8/13/16.
 //  Copyright © 2016 Harol. All rights reserved.
 //
 
