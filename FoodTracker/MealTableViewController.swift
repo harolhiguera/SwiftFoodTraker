@@ -20,12 +20,11 @@ class MealTableViewController: UITableViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        // Use the edit button item provided by the table view controller.
+        navigationItem.leftBarButtonItem = editButtonItem()
+        
+        // Load the sample data.
         
         loadSampleMeals()
     }
@@ -89,42 +88,60 @@ class MealTableViewController: UITableViewController {
     @IBAction func unwindToMealList(sender: UIStoryboardSegue) {
     
         if let sourceViewController = sender.sourceViewController as? MealViewController, meal = sourceViewController.meal {
-        
-            // Add a new meal.
             
-            //This code computes the location in the table view where the new table view cell representing the new meal will be inserted, and stores it in a local constant called newIndexPath.
-            let newIndexPath = NSIndexPath(forRow: meals.count, inSection: 0)
+            // This code checks whether a row in the table view is selected
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
             
-            //This adds the new meal to the existing list of meals in the data model.
-            meals.append(meal)
+                // Update an existing meal.
+                meals[selectedIndexPath.row] = meal
+                tableView.reloadRowsAtIndexPaths([selectedIndexPath], withRowAnimation: .None)
             
-            //This animates the addition of a new row to the table view for the cell that contains information about the new meal. The .Bottom animation option shows the inserted row slide in from the bottom.
-            tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
-        
+            }else{
+            
+                // Add a new meal.
+                
+                //This code computes the location in the table view where the new table view cell representing the new meal will be inserted, and stores it in a local constant called newIndexPath.
+                let newIndexPath = NSIndexPath(forRow: meals.count, inSection: 0)
+                
+                //This adds the new meal to the existing list of meals in the data model.
+                meals.append(meal)
+                
+                //This animates the addition of a new row to the table view for the cell that contains information about the new meal. The .Bottom animation option shows the inserted row slide in from the bottom.
+                tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+            
+            
+            }
+            
         }
     }
     
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+ 
 
-    /*
+    
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            
             // Delete the row from the data source
+            meals.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        
         } else if editingStyle == .Insert {
+        
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        
+        }
     }
-    */
+    
+    
 
     /*
     // Override to support rearranging the table view.
@@ -141,14 +158,36 @@ class MealTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "ShowDetail" {
+            
+            let mealDetailViewController = segue.destinationViewController as! MealViewController
+            
+            
+            // Get the cell that generated this segue.
+            if let selectedMealCell = sender as? MealTableViewCell {
+                
+                let indexPath = tableView.indexPathForCell(selectedMealCell)!
+                let selectedMeal = meals[indexPath.row]
+                mealDetailViewController.meal = selectedMeal
+                
+            }
+            
+        }
+        else if segue.identifier == "AddItem" {
+            
+            print("Adding new meal.")
+            
+        }
+        
     }
-    */
+
     
 }
